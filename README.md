@@ -65,4 +65,4 @@ nawk  1.02	1.00
 The **Normalized Performance Matrix** displays each command’s relative efficiency by independently setting the best-in-class wall-time and peak group memory usage to a 1.0 baseline. All other values represent the exact **proportional overhead** compared to the most efficient result in each category.
 
 ## License
-MIT — free to use, modify, and distribute
+MIT — free to use, modify, and distributeSee [LICENSE](LICENSE) for full text.

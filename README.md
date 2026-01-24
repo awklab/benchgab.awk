@@ -19,7 +19,7 @@ Tracks **runtime** (wall-time, wt [s]) and **peak memory usage** (group mem high
 
 ## Usage
 1. At the beginning of the script, define the **commands to benchmark**, the **number of warmup runs**, and the **number of test runs**.  
-By default, it tests it tests gawk, nawk, and mawk by displaying the number of duplicate lines on a provisional sales.csv file. 
+By default, it tests it tests `gawk`, `nawk`, and `mawk` by displaying the number of duplicate lines on a provisional sales.csv file. 
 ```awk
 	command["gawk"] = "gawk -F, 'x[$0]++ { i++ } END { print i }' sales.csv"
 	command["mawk"] = "mawk -F, 'x[$0]++ { i++ } END { print i }' sales.csv"

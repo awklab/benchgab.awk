@@ -12,10 +12,11 @@ Benchmarks and compares an arbitrary number of commands for runtime and peak gro
 - [`cgmemtime`](https://github.com/gsauthof/cgmemtime) (for measuring runtime and peak group memory usage)
 
 ## Output
-Tracks **runtime** (wall-time, wt [s]) and **peak memory usage** (group mem high, gmh [MB])
-- Mean, standard deviation (SD), min, max  
+Tracks **runtime** (wall-time, wt [s]) and **peak memory usage** (group mem high, gmh [MB]) For each command, calulates:
+- mean, standard deviation (SD), min, and max values.
+
+For performance comparison, provides:
 - Normalized Performance Matrix  
-**Note:** Only test runs are taken into account for output results; warmup runs are excluded from calculations.
 
 ## Usage
 1. At the beginning of the script, define the **commands to benchmark**, the **number of warmup runs**, and the **number of test runs**.  
@@ -38,7 +39,7 @@ chmod +x benchgab.awk
 ```
 
 ## Sample Output
-During execution, the script displays the tested command name, the actual run number (negative values indicate warmup runs), wall-time, and peak group memory usage.
+During execution, the script displays the tested command name, the actual run number (negative values indicate warmup runs; warmup runs are excluded from calculations), wall-time, and peak group memory usage.
 ```
 cmd  run  wt[s]   gmh[MB]
 gawk  -1  1.3776  550.7344

@@ -6,10 +6,10 @@ Gábor Dombay
 [GitHub](https://github.com/yabmod/benchgab.awk)
 
 ## Objective
-Benchmarks and compares an arbitrary number of commands for runtime and peak group memory usage, with configurable numbers of warmup and test runs.
+Benchmarks and compares an arbitrary number of commands for runtime and peak group memory, with configurable numbers of warmup and test runs.
 
 ## Dependencies
-- [`cgmemtime`](https://github.com/gsauthof/cgmemtime) (for measuring runtime and peak group memory usage)
+- [`cgmemtime`](https://github.com/gsauthof/cgmemtime) (for measuring runtime and peak group memory)
 
 ## Output
 Tracks **runtime** (rt [s]) and **peak group memory usage** (pm [MB]) For each command, calulates:

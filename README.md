@@ -3,7 +3,7 @@
 
 ## Author
 Gábor Dombay  
-[GitHub](https://github.com/yabmod/benchgab.awk)
+[GitHub](https://github.com/awklab/benchgab.awk)
 
 ## Objective
 Benchmarks and compares an arbitrary number of commands for runtime and peak group memory, with configurable numbers of warmup and test runs.
@@ -19,7 +19,7 @@ For performance comparison, provides:
 - Normalized Performance Matrix  
 
 ## Usage
-1. At the beginning of the script, define the **commands to benchmark**, the **number of warmup runs**, and the **number of test runs**.  
+1. At the beginning of the script, define the **commands to benchmark**, the **number of warmup**, and the **number of test runs**.  
 By default, it tests it tests `gawk`, `nawk`, and `mawk` by displaying the number of duplicate lines on a provisional sales.csv file. 
 ```awk
 	command["gawk"] = "gawk -F, 'x[$0]++ { i++ } END { print i }' sales.csv"
@@ -39,7 +39,7 @@ chmod +x benchgab.awk
 ```
 
 ## Sample Output
-During execution, the script displays the tested command name, the actual run number (negative values indicate warmup runs; warmup runs are excluded from calculations), wall-time, and peak group memory usage.
+During execution, the script displays the tested command name, the actual run number (negative values indicate warmups; warmups are excluded from calculations), wall-time, and peak group memory usage.
 ```
 cmd  run  rt[s]   pm[MB]
 gawk  -1  1.3776  550.7344

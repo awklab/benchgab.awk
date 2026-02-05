@@ -1,5 +1,6 @@
 #!/usr/bin/awk -f
 # Script: benchgab.awk
+# Version: 2026.01.
 # Type: AWK script
 # Author: Gábor Dombay
 # GitHub: https://github.com/yabmod/benchgab.awk

@@ -6,27 +6,28 @@ Gábor Dombay
 [GitHub](https://github.com/awklab/benchgab.awk)
 
 ## Objective
-Benchmarks and compares an arbitrary number of commands for runtime and peak group memory, with configurable numbers of warmup and test runs.
+Benchmarks and statistically compares an arbitrary number of commands for runtime and peak group memory, with configurable numbers of warmup and test runs.
 
 ## Dependencies
 - [`cgmemtime`](https://github.com/gsauthof/cgmemtime) (for measuring runtime and peak group memory)
 
 ## Output
 Tracks **runtime** (rt [s]) and **peak group memory usage** (pm [MB]) For each command, calulates:
-- mean, standard deviation (SD), min, and max values.
+- mean, standard deviation (SD), median, min and max values, jitter (JTR%).
 
 For performance comparison, provides:
-- Normalized Performance Matrix  
+- Normalized Benchmarks  
 
 ## Usage
 1. At the beginning of the script, define the **commands to benchmark**, the **number of warmup**, and the **number of test runs**.  
-By default, it tests it tests `gawk`, `nawk`, and `mawk` by displaying the number of duplicate lines on a provisional sales.csv file. 
+By default, it tests it tests the [BEHILOS Benchmark](https://awklab.com/behilos-benchmark). 
 ```awk
-	command["gawk"] = "gawk -F, 'x[$0]++ { i++ } END { print i }' sales.csv"
-	command["mawk"] = "mawk -F, 'x[$0]++ { i++ } END { print i }' sales.csv"
-	command["nawk"] = "nawk -F, 'x[$0]++ { i++ } END { print i }' sales.csv"
+	command["grep"]  = "grep '^[behilos]*$' /usr/share/dict/web2"
+	command["rg"]	 = "rg '^[behilos]*$' /usr/share/dict/web2"
+	command["gawk"]  = "gawk '/^[behilos]*$/' /usr/share/dict/web2"
+	...
 	warmup = 1 
-	runs = 10
+	runs = 100
 ```
 2. Make the script executable:
 
@@ -39,31 +40,34 @@ chmod +x benchgab.awk
 ```
 
 ## Sample Output
-During execution, the script displays the tested command name, the actual run number (negative values indicate warmups; warmups are excluded from calculations), wall-time, and peak group memory usage.
+During execution, the script displays the tested command name, the actual run number (negative values indicate warmups; warmups are excluded from calculations), runtime, and peak group memory.
 ```
-cmd  run  rt[s]   pm[MB]
-gawk  -1  1.3776  550.7344
-gawk  0   1.3979  550.9883
-gawk  1   1.3437  550.9883
-gawk  2   1.4178  550.9844
+cmd	run	rt[s]	pm[MB]
+gawk	-1	0.0211	0.4883
+gawk	0	0.0218	1.0000
+gawk	1	0.0214	0.7500
+gawk	2	0.0219	0.7383
 ...
 ```
 The results are displayed as follows:
 ```
-Benchmarking Results
-cmd	  Runtime [s]			        Peak Memory [MB]
-      mean ± sdev    min    max     mean ± sdev     min     max
-gawk  1.385 ± 0.026  1.344	1.418	550.94 ± 0.23	550.49	551.27
-mawk  1.245 ± 0.036  1.206	1.302	290.59 ± 0.27	290.23	290.99
-nawk  1.264 ± 0.007  1.251	1.276	278.82 ± 0.20	278.52	279.03
+--- Statistical Summary ---
+cmd     Runtime [s]                      Peak Memory [MB]
+        mean ± sdev      min     median  max     Jtr%    mean ± sdev      min     median  max     Jtr%
+grep    0.0048 ± 0.0003  0.0041  0.0048  0.0068  0.3     0.71 ± 0.11      0.60    0.64    1.12    10.9
+rg      0.0056 ± 0.0003  0.0048  0.0056  0.0064  1.1     1.13 ± 0.17      0.98    1.01    1.75    11.4
+gawk    0.0220 ± 0.0008  0.0204  0.0219  0.0251  0.5     0.75 ± 0.16      0.48    0.74    1.00    1.0
+...
 
-Normalized Performance Matrix
-cmd   RT    PM
-gawk  1.11	1.98
-mawk  1.00	1.04
-nawk  1.02	1.00
+--- Normalized Benchmarks ---
+cmd     RT      PM      d       F
+grep    1.00    1.18    0.18    1.18
+rg      1.17    1.88    0.89    2.19
+gawk    4.52    1.37    3.54    6.20
+...
+
 ```
-The **Normalized Performance Matrix** displays each command’s relative efficiency by independently setting the best-in-class runtime (RT) and peak memory (PM) to a 1.0 baseline. All other values represent the exact **proportional overhead** compared to the most efficient result in each category.
+The normalized benchmarks show each command’s relative efficiency, setting the best-in-class runtime (RT) and peak memory (PM) to a baseline of 1.0. The benchmark also calculates the Euclidean distance (d) and the total resource footprint (F).
 
 ## License
 MIT — free to use, modify, and distributeSee [LICENSE](LICENSE) for full text.

@@ -67,7 +67,7 @@ gawk    4.52    1.37    3.54    6.20
 ...
 
 ```
-The normalized benchmarks show each command’s relative efficiency, setting the best-in-class runtime (RT) and peak memory (PM) to a baseline of 1.0. The benchmark also calculates the Euclidean distance (d) and the total resource footprint (F).
+The normalized benchmarks show each command’s relative efficiency, setting the best-in-class median runtime (RT) and median peak memory (PM) to a baseline of 1.0. The benchmark also calculates the Euclidean distance (d) and the total resource footprint (F).
 
 ## License
 MIT — free to use, modify, and distributeSee [LICENSE](LICENSE) for full text.
